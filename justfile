@@ -20,3 +20,6 @@ positivo-touchscreen:
 	mkdir -p /usr/lib/firmware/silead
 	sudo cp -f /tmp/firmware/firmware/positivo/c464c/*.fw /usr/lib/firmware/silead
 	rm /tmp/firmware
+
+fish:
+	chsh -s /usr/bin/fish

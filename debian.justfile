@@ -1,3 +1,7 @@
+!include justfile
+
+mysystem: nala packages firewalld remote theming
+
 packages:
 	sudo nala install -y $(cat debian.packages | xargs)
 

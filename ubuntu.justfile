@@ -7,8 +7,8 @@ strip:
 
 remove-snap:
 	sudo snap remove firefox
-	sudo rm -rf /var/cache/snapd
 	sudo apt autoremove --purge snapd 
+	sudo rm -rf /var/cache/snapd
 	rm -fr ~/snap
 	sudo apt-mark hold snapd
 

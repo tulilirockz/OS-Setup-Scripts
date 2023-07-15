@@ -17,9 +17,9 @@ realtek-network:
 
 positivo-touchscreen:
 	git clone https://github.com/onitake/gsl-firmware /tmp/firmware
-	mkdir -p /usr/lib/firmware/silead
+	sudo mkdir -p /usr/lib/firmware/silead
 	sudo cp -f /tmp/firmware/firmware/positivo/c464c/*.fw /usr/lib/firmware/silead
-	rm /tmp/firmware
+	rm -r /tmp/firmware
 
 fish:
 	chsh -s /usr/bin/fish

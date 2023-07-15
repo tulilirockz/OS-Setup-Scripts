@@ -1,23 +1,28 @@
 !include justfile
 
-mysystem: nala packages firewalld remote theming
+mysystem: nala remove-bloat flatpak packages firewalld remote theming
+
+flatpak:
+	sudo nala install -y flatpak gnome-software-plugin-flatpak
+	flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 sudo:
 	echo "su -> sudo usermod -aG sudo $USER"
 
 zram:
-	sudo nala -y install zram-tools
+	sudo nala install -y zram-tools
 	echo -e "ALGO=zstd\nPERCENT=60" | sudo tee -a /etc/default/zramswap
 	sudo systemctl enable --now zramswap
 
 remove-bloat:
 	echo "run tasksel and remove debian-desktop-environment"
-	
+	sleep 2
+	sh debian.strip.sh
 
 packages:
 	sudo nala install -y $(cat debian.packages | xargs)
 
-remote:
+remote: firewalld
 	systemctl enable --now sshd cockpit
 	systemctl enable --now --user gnome-remote-desktop.service
 	firewall-cmd --set-default-zone=home
@@ -37,4 +42,4 @@ firewalld:
 	systemctl enable --now firewalld
 
 theming:
-	sudo nala install -y gnome-shell-extension-{dashtodock,appindicator} 
+	bash -c "sudo nala install -y gnome-shell-extension-{dashtodock,appindicator} yaru-theme-{gtk,icon,sound,gnome-shell}" 

@@ -1,9 +1,11 @@
+rsync
+ssh
+vim
 tmux
 kgx
 podman
 buildah
 skopeo
-netcat
 cockpit
 cockpit-podman
 cockpit-pcp

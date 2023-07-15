@@ -3,7 +3,7 @@
 mine: nala zram strip remove-snap flatpak packages remote
 
 strip:
-	sudo nala remove -y evince eog gnome-{characters,logs,font-viewer,text-editor,calculator} seahorse 
+	sudo bash -c 'nala remove -y evince eog gnome-{characters,logs,font-viewer,text-editor,calculator} seahorse'
 
 remove-snap:
 	sudo rm -rf /var/cache/snapd/
@@ -30,7 +30,6 @@ packages:
 
 nala:
 	sudo apt install -y nala 
-	sudo nala fetch
 
 remote:
 	sudo nala install -y firewalld

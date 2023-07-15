@@ -6,7 +6,8 @@ strip:
 	sudo bash -c 'nala remove -y evince eog gnome-{characters,logs,font-viewer,text-editor,calculator} seahorse'
 
 remove-snap:
-	sudo rm -rf /var/cache/snapd/
+	sudo snap remove firefox
+	sudo rm -rf /var/cache/snapd
 	sudo apt autoremove --purge snapd 
 	rm -fr ~/snap
 	sudo apt-mark hold snapd
@@ -22,7 +23,7 @@ flatpak:
 
 zram:
 	sudo nala install -y zram-tools
-	echo -e "ALGO=zstd\nPERCENT=60" | sudo tee -a /etc/default/zramswap
+	printf "\nALGO=zstd\nPERCENT=60" | sudo tee -a /etc/default/zramswap
 	sudo systemctl enable --now zramswap
 
 packages:

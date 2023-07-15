@@ -34,10 +34,10 @@ nala:
 
 remote:
 	sudo nala install -y firewalld
-	systemctl enable --now firewalld
-	firewall-cmd --set-default-zone=home
-	firewall-cmd --add-service=ssh --permanent
-	firewall-cmd --add-service=cockpit --permanent
-	firewall-cmd --reload
-	systemctl enable --now ssh cockpit
-	systemctl enable --now --user gnome-remote-desktop.service
+	sudo systemctl enable --now firewalld
+	sudo firewall-cmd --set-default-zone=home
+	sudo firewall-cmd --add-service=ssh --permanent
+	sudo firewall-cmd --add-service=cockpit --permanent
+	sudo firewall-cmd --reload
+	sudo systemctl enable --now ssh cockpit
+	sudo systemctl enable --now --user gnome-remote-desktop.service

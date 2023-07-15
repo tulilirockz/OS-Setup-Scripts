@@ -1,8 +1,23 @@
 !include justfile
 
+mine: nala zram strip remove-snap flatpak packages remote
+
+strip:
+	sudo nala remove -y evince eog gnome-{characters,logs,font-viewer,text-editor,calculator} seahorse 
+
+remove-snap:
+	sudo rm -rf /var/cache/snapd/
+	sudo apt autoremove --purge snapd 
+	rm -fr ~/snap
+	sudo apt-mark hold snapd
+
+snap:
+	snap remove firefox 
+	snap install chromium
+	snap refresh snap-store --channel=latest/edge
 
 flatpak:
-	sudo nala install -y flatpak gnome-software-plugin-flatpak
+	sudo nala install -y flatpak gnome-software gnome-software-plugin-flatpak
 	flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 zram:
@@ -16,10 +31,7 @@ packages:
 remote: firewalld
 	systemctl enable --now sshd cockpit
 	systemctl enable --now --user gnome-remote-desktop.service
-	firewall-cmd --set-default-zone=home
-	firewall-cmd --add-service=sshd --permanent
-	firewall-cmd --add-service=cockpit --permanent
-	firewall-cmd --reload
+	
 
 nala:
 	sudo apt install -y nala 
@@ -28,3 +40,7 @@ nala:
 firewalld:
 	sudo nala install -y firewalld
 	systemctl enable --now firewalld
+	firewall-cmd --set-default-zone=home
+	firewall-cmd --add-service=sshd --permanent
+	firewall-cmd --add-service=cockpit --permanent
+	firewall-cmd --reload

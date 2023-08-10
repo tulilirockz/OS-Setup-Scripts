@@ -1,6 +1,13 @@
-!include justfile
+!include ../std.justfile
 
-mysystem: nala remove-bloat flatpak packages firewalld remote theming
+mine: nala remove-bloat flatpak packages firewalld remote theming
+
+packages: nala
+	sudo nala install -y $(cat packages | xargs)
+
+nala:
+	sudo apt install -y nala 
+	sudo nala fetch
 
 flatpak:
 	sudo nala install -y flatpak gnome-software-plugin-flatpak
@@ -17,10 +24,7 @@ zram:
 remove-bloat:
 	echo "run tasksel and remove debian-desktop-environment"
 	sleep 2
-	sh debian.strip.sh
-
-packages:
-	sudo nala install -y $(cat debian.packages | xargs)
+	sh strip.sh
 
 remote: firewalld
 	systemctl enable --now sshd cockpit
@@ -29,10 +33,6 @@ remote: firewalld
 	firewall-cmd --add-service=sshd --permanent
 	firewall-cmd --add-service=cockpit --permanent
 	firewall-cmd --reload
-
-nala:
-	sudo apt install -y nala 
-	sudo nala fetch
 
 sid:
 	echo "remove deb-src + add contrib + nonfree to debian stuff, if you wanna use sid, replace bookworm with that /etc/apt/sources.list"

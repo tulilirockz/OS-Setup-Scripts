@@ -1,10 +1,10 @@
 set allow-duplicate-recipes
 
 system TARGET +OTHER:
-	@just -f {{TARGET}}.justfile {{OTHER}}
+	@just -f {{TARGET}}/justfile {{OTHER}}
 
 packages TARGET:
-	@just -f {{TARGET}} packages
+	@just -f {{TARGET}}/justfile packages
 
 tailscale:
 	curl -fsSL https://tailscale.com/install.sh | sh
@@ -23,3 +23,15 @@ positivo-touchscreen:
 
 fish:
 	chsh -s /usr/bin/fish
+	curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+	fish -c 'omf install bobthefish'
+
+yadm:
+	mkdir -p $HOME/opt $HOME/.local/bin
+	curl -fLo $HOME/opt/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm 
+	chmod a+x $HOME/opt/yadm
+	$HOME/opt/yadm clone https://github.com/tulilirockz/yadm-dotfiles.git
+	$HOME/opt/yadm reset --hard HEAD
+	mkdir -p $HOME/.local/bin
+	mv $HOME/yadm $HOME/.local/bin
+	@echo "run $HOME/.local/bin/yadm bootstrap to set up your computer"

@@ -1,5 +1,0 @@
-- some way to auto-configure gnome
-- auto-configure tailscale scripts
-- have something like yafti but CLI with fzf
-- split project into folders (e.g. packages, scripts, files, whatever)
-- have modular justfiles -> "!include (specific module).justfile"

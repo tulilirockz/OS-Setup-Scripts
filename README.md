@@ -1,5 +1,8 @@
-# setup-scripts
+# OS Setup Scripts
 
-Some setup scripts for my linux systems!
+These are setup scripts for my operating systems and environments.
+This repository contains packages, configurations, whatever else I need to set up my stuff!
 
-That's it really
+## Quick setup
+
+Install just with `install-just-static.sh`, then you can run whatever you want with `std.justfile`'s recipes

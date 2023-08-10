@@ -1,0 +1,11 @@
+!include ../std.justfile
+
+packages:
+    pkg install -y $(cat packages | xargs)
+
+ssh:
+    # Make sure to use -p 8022 when connecting to this! (then just add your key and use it as you want to.)
+    passwd
+
+yt-dlp:
+    python -m pip install -U yt-dlp

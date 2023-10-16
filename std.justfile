@@ -35,3 +35,23 @@ yadm:
 	mkdir -p $HOME/.local/bin
 	mv $HOME/yadm $HOME/.local/bin
 	@echo "run $HOME/.local/bin/yadm bootstrap to set up your computer"
+
+flathub:
+	flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+firewalld:
+	firewall-cmd --set-default-zone=home
+	firewall-cmd --add-service=ssh --permanent
+	firewall-cmd --add-service=cockpit --permanent
+	firewall-cmd --reload
+
+remote-access:
+	systemctl enable --now ssh cockpit
+	systemctl enable --now --user gnome-remote-desktop.service
+
+disable-swap:
+	#!/bin/bash
+	sed -i '/ swap / s/^/#/' /etc/fstab
+	swapoff -a
+
+
